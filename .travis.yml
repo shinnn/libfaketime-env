@@ -1,0 +1,18 @@
+if: branch !~ ^v\d
+language: node_js
+node_js: node
+jobs:
+  include:
+  - dist: xenial
+    addons:
+      apt:
+        packages: libfaketime
+  - dist: xenial
+    script: npx coverage test-no-libfaketime.js
+  - os: osx
+    addons:
+      homebrew:
+        packages: libfaketime
+    script: npx coverage test.js
+  - os: windows
+    script: npx coverage test-windows.js
